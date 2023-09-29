@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/huajien/picgo-plugin-helloimg"
+    "ssh": "git@github.com:huajien/picgo-plugin-helloimg.git"
   },
   "homepage": "https://github.com/huajien/picgo-plugin-helloimg",
   "scripts": {
