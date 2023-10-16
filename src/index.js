@@ -1,8 +1,6 @@
-
-
 module.exports = (ctx) => {
   const register = () => {
-      ctx.helper.uploader.register('Helloimg-uploader', {
+    ctx.helper.uploader.register('Helloimg-uploader', {
       handle,
       config: config,
       name: 'Helloimg'
@@ -13,39 +11,51 @@ module.exports = (ctx) => {
     register
   }
 }
-
-
 const handle = async (ctx) => {
-  let userConfig = ctx.getConfig('picBed.Helloimg-uploader')
+  let userConfig = ctx.getConfig('picBed.Helloimg-uploader');
   if (!userConfig) {
-    throw new Error('Can\'t find uploader config')
+    throw new Error("Can't find uploader config");
   }
-  const email = userConfig.email
-  const passwd = userConfig.passwd
 
-  const imgList = ctx.output
+  const email = userConfig.email;
+  const passwd = userConfig.passwd;
+
+  const imgList = ctx.output;
+
+  // 创建一个Promise数组，用于存储上传请求
+  const uploadPromises = [];
+
   for (let i in imgList) {
-    let image = imgList[i].buffer
-    let base64Image = image.toString('base64')
-    const postConfig = postOptions(email, passwd, base64Image)
-    let body = await ctx.request(postConfig)
-    body = JSON.parse(body)
-    if (body.status_code === 200) {
-      delete imgList[i].base64Image
-      delete imgList[i].buffer
-      imgList[i].imgUrl = body.image.url
-    } else {
-      ctx.emit('notification', {
-        title: '上传失败',
-        body: body.message
-      })
-      throw new Error(body.message)
-    }
+    let image = imgList[i].buffer;
+    let base64Image = image.toString('base64');
+    const postConfig = postOptions(email, passwd, base64Image);
+
+    // 向Promise数组添加上传请求
+    uploadPromises.push(uploadImage(ctx, imgList[i], postConfig));
   }
-  return ctx
+
+  // 使用Promise.all等待所有上传请求完成
+  await Promise.all(uploadPromises);
+
+  return ctx;
 }
 
-
+// 辅助函数用于上传单个图像
+const uploadImage = async (ctx, imgInfo, postConfig) => {
+  let body = await ctx.request(postConfig);
+  body = JSON.parse(body);
+  if (body.status_code === 200) {
+    delete imgInfo.base64Image;
+    delete imgInfo.buffer;
+    imgInfo.imgUrl = body.image.url;
+  } else {
+    ctx.emit('notification', {
+      title: '上传失败',
+      body: body.message
+    });
+    throw new Error(body.message);
+  }
+}
 const postOptions = (email, passwd, image) => {
   return {
     method: 'POST',
@@ -64,26 +74,26 @@ const postOptions = (email, passwd, image) => {
   }
 }
 
+
 const config = ctx => {
-  let userConfig = ctx.getConfig('picBed.Helloimg-uploader')
+  let userConfig = ctx.getConfig('picBed.Helloimg-uploader');
   if (!userConfig) {
-    userConfig = {}
+    userConfig = {};
   }
   return [{
     name: 'email',
     type: 'input',
     default: userConfig.email,
     required: true,
-    message: 'user-email',
+    message: '请输入用户邮箱',
     alias: '邮箱'
   }, {
     name: 'passwd',
     type: 'password',
     default: userConfig.passwd,
     required: true,
-    message: 'user-password',
+    message: '请输入用户密码',
     alias: '密码'
-  }]
+  }];
 }
-
 
