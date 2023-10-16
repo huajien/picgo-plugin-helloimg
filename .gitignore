@@ -1,9 +1,12 @@
 node_modules/
 yarn-error.log
+.eslintrc
+.gitignore
+.npmignore
+.travis.yml
 temp.js
 package-lock.json
 tsconfig.json
 tslint.json
 .vscode/
 src/
-.travis.yml
