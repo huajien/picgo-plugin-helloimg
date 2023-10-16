@@ -1,11 +1,26 @@
-## picgo-plugin-helloimg
+# picgo-plugin-helloimg
+
+
 
 图床地址[helloimg官网](https://helloimg.com/)
 
-使用教程
+## 使用教程
 
 前置拥有helloimg账号 安装picgo
-我使用typora
+我使用typora演示
+
+### 自动安装
+
+进入picgo -> 插件设置搜索`helloimg`
+
+![image-20231016231331577](https://vip.helloimg.com/images/2023/10/16/o2EicX.png)
+
+点击安装
+
+or
+
+### 手动安装
+
 首先下载
 
 https://github.com/huajien/picgo-plugin-helloimg/archive/refs/heads/master.zip
