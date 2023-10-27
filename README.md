@@ -1,10 +1,18 @@
 # picgo-plugin-helloimg
-
-
-
 图床地址[helloimg官网](https://helloimg.com/)
 
-## 使用教程
+原公益图床接口已经关闭公益版已经没有api上传功能
+
+临时解决方法使用prohelloimg版本
+
+感谢[`ygxbnet`](https://github.com/ygxbnet/)作者 提供的插件
+
+我将代码fork 下来使用GitHub 打包
+
+`干净安全`[下载typora 插件](https://github.com/huajien/lsky-upload/releases)
+
+
+# 下面已经失效 
 
 前置拥有helloimg账号 安装picgo
 我使用typora演示
