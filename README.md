@@ -9,7 +9,7 @@
 
 我将代码fork 下来使用GitHub 打包
 
-`干净安全`[下载typora 插件](https://github.com/huajien/lsky-upload/releases)
+`干净安全`[下载typora prohelloimg插件](https://github.com/huajien/lsky-upload/releases)
 
 
 # 下面已经失效 
